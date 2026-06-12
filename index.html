@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>New Life Security System</title>
+
+  <style>
+    body {
+      background: black;
+      color: #00ff66;
+      font-family: Consolas, monospace;
+      text-align: center;
+      padding: 50px;
+    }
+
+    .box {
+      border: 2px solid #00ff66;
+      padding: 25px;
+      max-width: 950px;
+      margin: auto;
+    }
+
+    h1 {
+      font-size: 42px;
+      letter-spacing: 2px;
+    }
+
+    p {
+      font-size: 22px;
+    }
+
+    input, button {
+      font-size: 22px;
+      padding: 12px;
+      margin: 10px;
+      background: black;
+      color: #00ff66;
+      border: 2px solid #00ff66;
+      font-family: Consolas, monospace;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    video {
+      margin-top: 20px;
+      border: 2px solid #00ff66;
+      max-width: 100%;
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .warning {
+      color: red;
+    }
+
+    #message {
+      margin-top: 25px;
+      font-size: 24px;
+      white-space: pre-line;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="box">
+
+    <h1>NEW LIFE SECURITY SYSTEM</h1>
+
+    <div id="stage1">
+      <p class="warning">LOCKDOWN ACTIVE</p>
+      <p>MISSION FILE CORRUPTED</p>
+      <p>Restore the system to begin the race.</p>
+      <p>ENTER ACCESS CODE:</p>
+
+      <input id="accessCode" placeholder="ACCESS CODE">
+      <br>
+      <button onclick="checkAccess()">SUBMIT</button>
+    </div>
+
+    <div id="stage2" class="hidden">
+      <p>ACCESS GRANTED</p>
+      <p>MISSION FILE DETECTED</p>
+      <p>STATUS: ENCRYPTED</p>
+      <button onclick="recoverFile()">RECOVER FILE</button>
+    </div>
+
+    <div id="stage3" class="hidden">
+      <p id="recoveryText">Recovering...</p>
+    </div>
+
+    <div id="stage4" class="hidden">
+      <p>RECOVERY COMPLETE</p>
+      <p class="warning">WARNING: FILE FRAGMENT ENCRYPTED</p>
+
+      <h1>17-5-3-17-3-19</h1>
+
+      <p>DECRYPTED FRAGMENT:</p>
+      <input id="decodedFragment" placeholder="ENTER FRAGMENT">
+      <br>
+      <button onclick="checkDecodedFragment()">VERIFY</button>
+    </div>
+
+    <div id="stage5" class="hidden">
+      <p>FRAGMENT VERIFIED</p>
+      <p>SECONDARY FRAGMENT RECOVERED</p>
+
+      <h1>40:31</h1>
+
+      <p>PROMISE INCOMPLETE:</p>
+      <p>They shall _____ and not be weary.</p>
+
+      <input id="runAnswer" placeholder="ENTER MISSING WORD">
+      <br>
+      <button onclick="checkRunAnswer()">VERIFY</button>
+    </div>
+
+    <div id="stage6" class="hidden">
+      <p>KEYWORD ACCEPTED</p>
+      <p>RECOVERING MEDIA FILE...</p>
+      <button onclick="showVideo()">RESTORE MEDIA FILE</button>
+    </div>
+
+    <div id="stage7" class="hidden">
+      <p>MEDIA FILE RECOVERED</p>
+
+      <video id="runVideo" width="800" controls playsinline>
+        <source src="run.mp4" type="video/mp4">
+        Your browser does not support video playback.
+      </video>
+
+      <br><br>
+
+      <button id="continueButton" class="hidden" onclick="showLockboxCode()">
+        VERIFY MEDIA FILE
+      </button>
+    </div>
+
+    <div id="stage8" class="hidden">
+      <p>MEDIA FILE VERIFIED</p>
+      <p>MISSION ORIGIN FOUND</p>
+      <p>1 CORINTHIANS 9:24</p>
+      <p>MISSION LAUNCH AUTHORIZED</p>
+      <p>LOCKBOX CODE:</p>
+      <h1>0924</h1>
+    </div>
+
+    <div id="message"></div>
+
+  </div>
+
+  <audio id="bgMusic" loop>
+    <source src="music.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    function checkAccess() {
+      let code = document.getElementById("accessCode").value.toLowerCase().trim();
+
+      if (code === "prize") {
+        document.getElementById("stage1").classList.add("hidden");
+        document.getElementById("stage2").classList.remove("hidden");
+        document.getElementById("message").innerText = "";
+      } else {
+        document.getElementById("message").innerText = "ACCESS DENIED\nTry again.";
+      }
+    }
+
+    function recoverFile() {
+      document.getElementById("stage2").classList.add("hidden");
+      document.getElementById("stage3").classList.remove("hidden");
+
+      let steps = [
+        "Recovering...\n14%",
+        "Recovering...\n39%",
+        "Recovering...\n62%",
+        "Recovering...\n88%",
+        "RECOVERY COMPLETE"
+      ];
+
+      let i = 0;
+
+      let interval = setInterval(function() {
+        document.getElementById("recoveryText").innerText = steps[i];
+        i++;
+
+        if (i === steps.length) {
+          clearInterval(interval);
+
+          setTimeout(function() {
+            document.getElementById("stage3").classList.add("hidden");
+            document.getElementById("stage4").classList.remove("hidden");
+          }, 1000);
+        }
+      }, 900);
+    }
+
+    function checkDecodedFragment() {
+      let answer = document.getElementById("decodedFragment").value.toLowerCase().trim();
+
+      if (answer === "isaiah") {
+        document.getElementById("stage4").classList.add("hidden");
+        document.getElementById("stage5").classList.remove("hidden");
+        document.getElementById("message").innerText = "";
+      } else {
+        document.getElementById("message").innerText = "FRAGMENT NOT VERIFIED\nTry again.";
+      }
+    }
+
+    function checkRunAnswer() {
+      let answer = document.getElementById("runAnswer").value.toLowerCase().trim();
+
+      if (answer === "run") {
+        document.getElementById("stage5").classList.add("hidden");
+        document.getElementById("stage6").classList.remove("hidden");
+        document.getElementById("message").innerText = "";
+      } else {
+        document.getElementById("message").innerText = "PROMISE NOT VERIFIED\nTry again.";
+      }
+    }
+
+    function showVideo() {
+      document.getElementById("stage6").classList.add("hidden");
+      document.getElementById("stage7").classList.remove("hidden");
+
+      let video = document.getElementById("runVideo");
+      let music = document.getElementById("bgMusic");
+
+      music.play().catch(function() {
+        console.log("Audio playback blocked until user interaction.");
+      });
+
+      video.play().catch(function() {
+        document.getElementById("message").innerText =
+          "Press play to restore the media file.";
+      });
+
+      setTimeout(function() {
+        document.getElementById("continueButton").classList.remove("hidden");
+      }, 17000);
+    }
+
+    function showLockboxCode() {
+      document.getElementById("stage8").classList.remove("hidden");
+      document.getElementById("continueButton").disabled = true;
+      document.getElementById("continueButton").innerText = "MEDIA VERIFIED";
+      document.getElementById("message").innerText = "";
+    }
+  </script>
+
+</body>
+</html>
